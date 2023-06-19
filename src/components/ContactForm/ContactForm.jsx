@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { addContact, getAllContacts } from 'redux/contactsSlice';
-import { nanoid } from 'nanoid';
+import { getAllContacts } from 'redux/contactsSlice';
+import { addContact } from 'redux/operations';
 import { Input } from 'components/ContactForm/FormInputName.styled';
 import {
   FormLabel,
@@ -49,8 +49,8 @@ export const ContactForm = () => {
       errorMsg(name);
       return;
     }
-    const id = nanoid();
-    dispatch(addContact({ name, number, id }));
+
+    dispatch(addContact({ name, number }));
     succsessMsg(name);
     setName('');
     setNumber('');

@@ -1,5 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { deleteContact, getAllContacts } from 'redux/contactsSlice';
+import { getAllContacts } from 'redux/contactsSlice';
+import { deleteContact } from 'redux/operations';
 import { getFilter } from 'redux/filterSlice';
 import { FaWindowClose } from 'react-icons/fa';
 import {
@@ -8,7 +9,7 @@ import {
 } from 'components/ContactList/ContactList.styled';
 
 //toast
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 const warningMsg = name =>
   toast.warn(`${name} contact has been removed!`, {
@@ -33,14 +34,14 @@ export const ContactListItems = () => {
         .filter(item => item.name.toLowerCase().includes(filter.toLowerCase()))
         .map(item => {
           return (
-            <ContactLi key={item.name}>
+            <ContactLi key={item.id}>
               <span>
                 {item.name}: {item.number}
               </span>
               <ContactBtn
                 type="button"
                 onClick={() => {
-                  dispatch(deleteContact(item.name));
+                  dispatch(deleteContact(item.id));
                   warningMsg(item.name);
                 }}
               >
@@ -49,7 +50,6 @@ export const ContactListItems = () => {
             </ContactLi>
           );
         })}
-      <ToastContainer />
     </>
   );
 };
